@@ -1,14 +1,32 @@
-# Assuming the .travis.yml file is in the project directory, and there is a separate sub-directory for each service
-# Use either `docker-compose` or individual `docker build` commands
-# Build
-- docker build -t udagram-api-feed ./udagram-api-feed
-# Do similar for other three images
-# Tagging
-- docker tag udagram-api-feed tamhv/udagram-api-feed:v1
-# Do similar for other three images
-# Push
-# Assuming DOCKER_PASSWORD and DOCKER_USERNAME are set in the Travis repository settings
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker push tamhv/udagram-api-feed:v1
-# Do similar for other three images
+
+language: node_js
+node_js:
+  - 13
+
+services:
+  - docker
+
+# Pre-testing installs
+install:
+  - echo "nothing needs to be installed"
+
+# Scripts to be run such as tests
+before_script:
+  - echo "no tests"
+
+script:
+  - docker --version # print the version for logging
+  - docker-compose -f docker-compose-build.yaml build --parallel
+  - docker tag udagram-api-feed tamhv/udagram-api-feed:v1
+  - docker tag udagram-api-feed tamhv/udagram-api-user:v1
+  - docker tag udagram-api-feed tamhv/udagram-reverseproxy:v1
+  - docker tag udagram-api-feed tamhv/udagram-frontend:v1
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push tamhv/udagram-api-feed:v1
+  - docker push tamhv/udagram-api-feed:v1
+  - docker push tamhv/udagram-api-user:v1
+  - docker push tamhv/udagram-reverseproxy:v1
+  - docker push tamhv/udagram-frontend:v1
 
