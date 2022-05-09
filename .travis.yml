@@ -20,7 +20,7 @@ script:
   - docker tag udagram-api-feed tamhv/udagram-api-feed:v2
   - docker tag udagram-api-user tamhv/udagram-api-user:v2
   - docker tag reverseproxy tamhv/udagram-reverseproxy:v2
-  - docker tag udagram-frontend tamhv/udagram-frontend:v2
+  - docker tag udagram-frontend:local tamhv/udagram-frontend:v2
 
 after_success:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
