@@ -17,5 +17,12 @@ spec:
       containers:
       - name: udagram-reverseproxy	
         image: tamhv/udagram-reverseproxy:v1
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
         ports:
         - containerPort: 8080
