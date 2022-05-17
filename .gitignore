@@ -41,3 +41,7 @@ venv/
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 set_env.sh
+udagram-udacity-dev_accessKeys.csv
+kubectl.exe
+minikube-installer.exe
+kubectl (1).exe

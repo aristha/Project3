@@ -114,7 +114,7 @@ Use this link to <a href="https://kubernetes.io/docs/tutorials/stateless-applica
 # Check the deployment names and their pod status
 kubectl get deployments
 # Create a Service object that exposes the frontend deployment:
-kubectl expose deployment frontend --type=LoadBalancer --name=publicfrontend
+kubectl expose deployment udagram-frontend --type=LoadBalancer --name=publicfrontend
 kubectl get services publicfrontend
 # Note down the External IP, such as 
 # a5e34958a2ca14b91b020d8aeba87fbb-1366498583.us-east-1.elb.amazonaws.com

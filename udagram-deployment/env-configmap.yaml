@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-configmap
+  labels:
+    app: my-app
+data:
+  POSTGRES_HOST: localhost
+  POSTGRES_DB: postgres
+  AWS_BUCKET: arn:aws:s3:::my-825566562884-bucket
+  AWS_REGION: us-east-1
+  AWS_PROFILE: test
+  JWT_SECRET: testing
+  URL: http://10.107.5.221:8100
+
