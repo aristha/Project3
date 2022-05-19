@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: udagram-api-feed
-        image: tamhv/tamhv/udagram-api-feed:v1
+        image: tamhv/udagram-api-feed:v1
         resources:
           limits:
             memory: 256Mi
