@@ -16,13 +16,6 @@ spec:
     spec:
       containers:
       - name: udagram-api-feed
-        image: tamhv/udagram-api-feed:v1
-        resources:
-          limits:
-            memory: 256Mi
-            cpu: "1"
-          requests:
-            memory: 256Mi
-            cpu: "0.2"
+        image: tamhv/udagram-api-feed:v3
         ports:
         - containerPort: 80

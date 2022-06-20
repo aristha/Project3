@@ -18,4 +18,5 @@ kubectl apply -f backend-feed-deployment.yaml
 kubectl apply -f backend-reverseproxy-deployment.yml
 kubectl apply -f backend-feed-service.yaml
 kubectl apply -f backend-user-service.yaml
+kubectl apply -f backend-reverseproxy-service.yaml
 kubectl apply -f udagram-frontend-service.yml

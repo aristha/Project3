@@ -150,7 +150,10 @@ Next, re-apply configmap and re-deploy to the k8s cluster.
 ```bash
 kubectl apply -f env-configmap.yaml
 # Rolling update "frontend" containers of "frontend" deployment, updating the image
-kubectl set image deployment frontend frontend=sudkul/udagram-frontend:v3
+kubectl set image deployment udagram-frontend udagram-frontend=tamhv/udagram-frontend:v3
+kubectl set image deployment backend-feed backend-feed=tamhv/udagram-api-feed:v3
+kubectl set image deployment backend-user backend-user=tamhv/udagram-api-user:v3
+kubectl set image deployment backend-reverseproxy backend-reverseproxy=tamhv/udagram-reverseproxy:v3
 # Do the same for other three deployments
 ```
 Check your deployed application at the External IP of your *publicfrontend* service. 
