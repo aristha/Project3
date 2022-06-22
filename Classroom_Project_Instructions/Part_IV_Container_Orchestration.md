@@ -114,7 +114,7 @@ Use this link to <a href="https://kubernetes.io/docs/tutorials/stateless-applica
 # Check the deployment names and their pod status
 kubectl get deployments
 # Create a Service object that exposes the frontend deployment:
-kubectl expose deployment udagram-frontend --type=LoadBalancer --name=publicfrontend
+kubectl expose deployment udagram-frontend --type=LoadBalancer --name=publicfrontend --port=8100
 kubectl get services publicfrontend
 # Note down the External IP, such as 
 # a5e34958a2ca14b91b020d8aeba87fbb-1366498583.us-east-1.elb.amazonaws.com
@@ -150,10 +150,10 @@ Next, re-apply configmap and re-deploy to the k8s cluster.
 ```bash
 kubectl apply -f env-configmap.yaml
 # Rolling update "frontend" containers of "frontend" deployment, updating the image
-kubectl set image deployment udagram-frontend udagram-frontend=tamhv/udagram-frontend:v3
-kubectl set image deployment backend-feed backend-feed=tamhv/udagram-api-feed:v3
-kubectl set image deployment backend-user backend-user=tamhv/udagram-api-user:v3
-kubectl set image deployment backend-reverseproxy backend-reverseproxy=tamhv/udagram-reverseproxy:v3
+kubectl set image deployment udagram-frontend udagram-frontend=tamhv/udagram-frontend:v5
+kubectl set image deployment backend-feed udagram-api-feed=tamhv/udagram-api-feed:v5
+kubectl set image deployment backend-user udagram-api-user=tamhv/udagram-api-user:v5
+kubectl set image deployment backend-reverseproxy udagram-reverseproxy=tamhv/udagram-frontend:v5
 # Do the same for other three deployments
 ```
 Check your deployed application at the External IP of your *publicfrontend* service. 
@@ -164,7 +164,7 @@ Check your deployed application at the External IP of your *publicfrontend* serv
 1. Use this command to see the STATUS of your pods:
 ```bash
 kubectl get pods
-kubectl describe pod <pod-id>
+kubectl describe pod backend-feed-57488f6997-6bghc
 # An example:
 # kubectl logs backend-user-5667798847-knvqz
 # Error from server (BadRequest): container "backend-user" in pod "backend-user-5667798847-knvqz" is waiting to start: trying and failing to pull image
@@ -176,7 +176,7 @@ In case of `ImagePullBackOff` or `ErrImagePull` or `CrashLoopBackOff`, review yo
 ```bash
 kubectl get pods
 # Assuming "backend-feed-68d5c9fdd6-dkg8c" is a pod
-kubectl exec --stdin --tty backend-feed-68d5c9fdd6-dkg8c -- /bin/bash
+kubectl exec --stdin --tty backend-feed-57488f6997-6bghc -- /bin/bash
 # See what values are set for environment variables in the container
 printenv | grep POST
 # Or, you can try "curl <cluster-IP-of-backend>:8080/api/v0/feed " to check if services are running.

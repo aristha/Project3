@@ -15,7 +15,9 @@ spec:
         app: my-app
     spec:
       containers:
-      - name: udagram-api-feed
-        image: tamhv/udagram-api-feed:v3
-        ports:
-        - containerPort: 80
+        - name: backend-feed
+          image: tamhv/udagram-api-feed:v5
+          ports:
+            - containerPort: 80
+          envFrom:
+          - configMapRef:  { name: env-configmap }
