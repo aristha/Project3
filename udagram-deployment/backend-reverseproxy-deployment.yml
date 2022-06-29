@@ -1,23 +1,82 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-reverseproxy
+  name: reverseproxy-service
   labels:
-    app: my-app
+    app: reverseproxy-service
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: my-app
+      app: reverseproxy-service
   template:
     metadata:
       labels:
-        app: my-app
+        app: reverseproxy-service
     spec:
       containers:
       - name: backend-reverseproxy	
-        image: tamhv/reverseproxy:v5
+        image: tamhv/reverseproxy:v8
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        env:
+          - name: URL
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: URL
+          - name: AWS_BUCKET
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_BUCKET
+          - name: AWS_PROFILE
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_PROFILE
+          - name: AWS_REGION
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_REGION
+          - name: JWT_SECRET
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: JWT_SECRET
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: POSTGRES_DB
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: POSTGRES_HOST
+          - name: POSTGRES_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: env-aws
+                key: POSTGRES_USERNAME
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: env-aws
+                key: POSTGRES_PASSWORD
+        # volumeMounts:
+        # - name: aws-secret
+        #   mountPath: "/root/.aws/"
+        #   readOnly: true
         ports:
-        - containerPort: 80
-        envFrom:
-          - configMapRef:  { name: env-configmap }
+          - containerPort: 8080
+      # volumes:
+      #   - name: aws-secret
+      #     secret:
+      #       secretName: aws-secret

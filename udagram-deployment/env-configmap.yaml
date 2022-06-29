@@ -7,17 +7,14 @@ metadata:
 data:
   POSTGRES_HOST: database-2.cpwotfwixilf.us-east-1.rds.amazonaws.com
   POSTGRES_DB: postgres
-  POSTGRES_USERNAME: postgres
-  POSTGRES_PASSWORD: postgres
   AWS_BUCKET: arn:aws:s3:::my-825566562884-bucket
-  AWS_REGION: us-east-1
+  AWS_REGION: us-east-2
   AWS_PROFILE: test
   JWT_SECRET: testing
-  URL: http://10.106.240.9:8100
+  URL: http://a5623f55c0d774db8bbd1cdd69baf62e-2094625489.us-east-2.elb.amazonaws.com:8100
   config: |
     address-pools:
       - name: default
         protocol: layer2
-        addresses:
-        - 192.168.1.240-192.168.1.250
+
 
